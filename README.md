@@ -8,9 +8,6 @@ An instance of a **Connection** will enable **login** with API credentials, send
 
 Other Python modules provide info for connecting to specific REST API endpoints, unittesting for the **Connection** class and some utilities that access the REST API.
 
-dhcpadmin_info.py contains the **url** and **certificate_bundle** values to be passed to the Connection class initialization method for the production Infoblox WAPI.
-
-ltlddsltao1_info.py contains the **url** and **certificate_bundle** values to be passed to the Connection class initialization method for the non-production (TechLab) Infoblox WAPI.
 
 # Getting Started
 **General usage**:
