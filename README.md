@@ -52,5 +52,3 @@ DELETE - delete an API object. The object reference is required.  There are no o
 # Build and Test
 The unittest module to validate the basic functionality of the Connection class is:  init_tst.py.
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
