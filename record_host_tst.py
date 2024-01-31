@@ -21,7 +21,7 @@ ib_conn = Connection(url=url, certificate_bundle=certificate_bundle)
 # Test fixtures.
 #
 
-host30 = {"name":"ddi-host30.humana.com", "ip-address": "10.32.15.30", "ttl": 300, "comment": "DDI Host 30", "reference": ""}
+host30 = {"name":"ddi-host30.company.com", "ip-address": "10.32.15.30", "ttl": 300, "comment": "DDI Host 30", "reference": ""}
 host30_update = {"ip-address": "10.32.15.31", "ttl": 600, "comment": "DDI Host 30 Updated"}
 host30_ipv4addrs = []
 
@@ -169,7 +169,7 @@ class TestDeleteHost(TestCase):
     """"""
     def test_create_host30(self):
         """
-        Delete the newly created record:host host30 (ddi-host30.humana.com).
+        Delete the newly created record:host host30 (ddi-host30.company.com).
         """
         response = ib_conn.delete(host30["reference"])
         self.assertEqual(response.status_code, 200)
