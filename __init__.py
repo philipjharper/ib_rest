@@ -211,27 +211,30 @@ if __name__ == "__main__":
     """"""
     from ltlddslta01_info import url, certificate_bundle
     import os
-    ib_conn = Connection(url=url, certificate_bundle=certificate_bundle)
-    ib_conn.login(os.environ["TECHLAB_ACCOUNT"],os.environ["TECHLAB_PASSWORD"])
-    #response = ib_conn.get("networkview", params={"name":"default"})
-    #response = ib_conn.get("networkview", params={"is_default":"True"})
-    """
-    for k, v in ib_conn.schema.items():
-        print("{}:\t{}\n".format(k, v))
-    """
-    #response = ib_conn.post("network", {"network":"1.0.4.0/24","comment":"test network"})
-    #response = ib_conn.put("network/ZG5zLm5ldHdvcmskMS4wLjQuMC8yNC8w:1.0.4.0/24/default", data={"comment":"Test new comment"})
-    #response = ib_conn.get_by_reference("network/ZG5zLm5ldHdvcmskMS4wLjQuMC8yNC8w:1.0.4.0/24/default", params={"_return_fields+":"members"})
-    #response = ib_conn.get_by_reference("network/ZG5zLm5ldHdvcmskMS4wLjQuMC8yNC8w:1.0.4.0/24/default")
-    #print(response.json())
-    #response = ib_conn.delete("network/ZG5zLm5ldHdvcmskMS4wLjQuMC8yNC8w:1.0.4.0/24/default")
-    #print(response.json()[0]["_ref"])
-    #response = ib_conn.get_by_reference(response.json()[0]["_ref"])
-    #results = ib_conn.get_paged("networkview")
-    for dhcp_range in ib_conn.stream("range", params={"_return_fields":"network,member","server_association_type":"MEMBER"}):
-        print(dhcp_range)
-    #print(len(results))
-    ib_conn.logout()
+    with Connection(url=url, certificate_bundle=certificate_bundle) as ib_conn:
+        ib_conn.login(os.environ["ib-account-ro"], os.environ["ib-password-ro"])
+        #response = ib_conn.get("networkview", params={"name":"default"})
+        #response = ib_conn.get("networkview", params={"is_default":"True"})
+        #response = ib_conn.get_by_reference("networkview/ZG5zLm5ldHdvcmtfdmlldyQw:default/true")
+        response = ib_conn.get("grid")
+        print(response.json()[0])
+        #response = ib_conn.get_by_reference(response.json()[0]["_ref"], params={"_return_fields":"name,allow_recursive_deletion"})
+        #print(type(response))
+        """
+        print(ib_conn.isloggedin)
+        for key, value in ib_conn.schema.items():
+            print("{}\t{}\n".format(key, value))
+        """
+        #results = ib_conn.get_paged("zone_auth", page_size=200)
+        """
+        for dhcp_range in ib_conn.stream("range", params={"_return_fields":"network,member","server_association_type":"MEMBER"}):
+            print(dhcp_range)
+        """
+        #print(len(results))
+        """
+        for result in results:
+            print("zone:\t{}\tview:\t{}".format(result.get("fqdn"), result.get("view")))
+        """
 
     if not ib_conn.isloggedin:
         print("logged out.")
