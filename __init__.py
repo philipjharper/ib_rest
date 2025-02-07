@@ -2,7 +2,7 @@
 ib_rest - call the Infoblox REST API.
 
 Author:  Philip Harper
-Edited:  8/22/2023
+Edited:  1/8/2025
 """
 import requests
 
@@ -189,7 +189,23 @@ class Connection:
         """
         self.response = self.session.delete(self.url+"/"+reference)
         return self.response
+        
+    def __enter__(self):
+        """
+        Enable an instance of this class to be used as a Context Manager as
+        long as the Connection is initialized with at least an URL.
+        """
+        if not self.url:
+            raise UnitializedException
+        return self
 
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        """
+        When exiting the Context Manager log out if logged in.
+        """
+        if self.isloggedin:
+            self.logout()
+        
 
 if __name__ == "__main__":
     """"""
